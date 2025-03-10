@@ -1,5 +1,5 @@
-npm install
+# npm install
 
 # npm run start
 
-# sql文件是当前文件数据库需要创建的表
+# sql 文件是当前文件数据库需要创建的表
