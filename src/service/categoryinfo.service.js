@@ -4,7 +4,7 @@ class categoryService {
   async create(category) {
     console.log(category, 'categoryinfo数据');
     // 1.获取category的数据
-    const { name, newPrice, picture, status, count, brand, createT, nameDesc, weight } = category;
+    const { name, newPrice, picture, status, count, brand, createT, nameDesc, weight, categoryType } = category;
 
     try {
       // 1. 参数校验
@@ -62,6 +62,11 @@ class categoryService {
         placeholders.push('?');
         params.push(weight);
       }
+      if (categoryType !== undefined) {
+        fields.push('categoryType');
+        placeholders.push('?');
+        params.push(categoryType);
+      }
 
       // 如果没有有效的字段，抛出错误
       if (fields.length === 0) {
@@ -89,7 +94,8 @@ class categoryService {
         ...(status !== undefined && { status }),
         ...(nameDesc && { nameDesc }),
         ...(createT && { createT }),
-        ...(weight && { weight })
+        ...(weight && { weight }),
+        ...(categoryType && { categoryType })
       };
     } catch (error) {
       console.error('SQL Error:', error);
@@ -163,7 +169,7 @@ class categoryService {
   }
 
   async update(data) {
-    const { id, name, newPrice, oldPrice, picture, status, count, nameDesc, weight } = data;
+    const { id, name, newPrice, oldPrice, picture, status, count, nameDesc, weight, categoryType } = data;
 
     try {
       // 初始化 SQL 语句和参数
@@ -203,6 +209,10 @@ class categoryService {
       if (weight !== undefined) {
         updates.push('weight = ?');
         params.push(weight);
+      }
+      if (categoryType !== undefined) {
+        updates.push('categoryType = ?');
+        params.push(categoryType);
       }
 
       // 如果没有需要更新的字段，直接返回

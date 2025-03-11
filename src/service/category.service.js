@@ -190,7 +190,7 @@ class categoryService {
   }
 
   async queryBrand() {
-    const statement = `SELECT id, brand FROM category;`;
+    const statement = `SELECT id, brand, name FROM category;`;
     const [result] = await connection.execute(statement);
     return result;
   }
