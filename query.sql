@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS `category_info`(
 	status INT,
 	nameDesc VARCHAR(255),
 	weight VARCHAR(255) DEFAULT(''),
+	brand VARCHAR(255) DEFAULT(''),
 	categoryType VARCHAR(255) DEFAULT(''),
 	createT TIMESTAMP
 );
