@@ -49,8 +49,8 @@ class CategoryinfoController {
 
   async update(ctx, next) {
     const { id } = ctx.params;
-    const { name, newPrice, oldPrice, picture, status, count, nameDesc, weight, categoryType } = ctx.request.body;
-    const data = { id, name, newPrice, oldPrice, picture, status, count, nameDesc, weight, categoryType };
+    const { name, newPrice, oldPrice, picture, status, count, nameDesc, weight, categoryType, storeName, updateT } = ctx.request.body;
+    const data = { id, name, newPrice, oldPrice, picture, status, count, nameDesc, weight, categoryType, storeName, updateT };
     await categoryService.update(data);
     ctx.body = {
       code: 1,

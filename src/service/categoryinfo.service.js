@@ -4,7 +4,7 @@ class categoryService {
   async create(category) {
     console.log(category, 'categoryinfo数据');
     // 1.获取category的数据
-    const { name, newPrice, picture, status, count, brand, createT, nameDesc, weight, categoryType } = category;
+    const { name, newPrice, picture, status, count, brand, createT, nameDesc, weight, categoryType, storeName } = category;
 
     try {
       // 1. 参数校验
@@ -67,6 +67,11 @@ class categoryService {
         placeholders.push('?');
         params.push(categoryType);
       }
+      if (storeName !== undefined) {
+        fields.push('storeName');
+        placeholders.push('?');
+        params.push(storeName);
+      }
 
       // 如果没有有效的字段，抛出错误
       if (fields.length === 0) {
@@ -95,7 +100,8 @@ class categoryService {
         ...(nameDesc && { nameDesc }),
         ...(createT && { createT }),
         ...(weight && { weight }),
-        ...(categoryType && { categoryType })
+        ...(categoryType && { categoryType }),
+        ...(storeName && { storeName })
       };
     } catch (error) {
       console.error('SQL Error:', error);
@@ -103,7 +109,7 @@ class categoryService {
     }
   }
 
-  async list({ name, status, brand, page = 1, pageSize = 10 }) {
+  async list({ name, status, brand, storeName, page = 1, pageSize = 10 }) {
     try {
       // 查询总条数
       let countSql = 'SELECT COUNT(*) AS total FROM category_info';
@@ -119,6 +125,11 @@ class categoryService {
         conditions.push('name LIKE ?');
         params.push(`%${name}%`);
         countParams.push(`%${name}%`);
+      }
+      if (storeName) {
+        conditions.push('storeName LIKE ?');
+        params.push(`%${storeName}%`);
+        countParams.push(`%${storeName}%`);
       }
       if (status !== undefined) {
         conditions.push('status = ?');
@@ -169,7 +180,7 @@ class categoryService {
   }
 
   async update(data) {
-    const { id, name, newPrice, oldPrice, picture, status, count, nameDesc, weight, categoryType } = data;
+    const { id, name, newPrice, oldPrice, picture, status, count, nameDesc, weight, categoryType, storeName, updateT } = data;
 
     try {
       // 初始化 SQL 语句和参数
@@ -213,6 +224,14 @@ class categoryService {
       if (categoryType !== undefined) {
         updates.push('categoryType = ?');
         params.push(categoryType);
+      }
+      if (storeName !== undefined) {
+        updates.push('storeName = ?');
+        params.push(storeName);
+      }
+      if (updateT !== undefined) {
+        updates.push('updateT = ?');
+        params.push(updateT);
       }
 
       // 如果没有需要更新的字段，直接返回

@@ -25,6 +25,8 @@ CREATE TABLE IF NOT EXISTS `category_info`(
 	weight VARCHAR(255) DEFAULT(''),
 	brand VARCHAR(255) DEFAULT(''),
 	categoryType VARCHAR(255) DEFAULT(''),
+	storeName VARCHAR(255) DEFAULT(''),
+	brand VARCHAR(255) DEFAULT(''),
 	createT TIMESTAMP
 );
 
@@ -34,7 +36,7 @@ SELECT * FROM `category_info` LIMIT 10 OFFSET 0;
 SELECT COUNT(*) AS total FROM `category_info` [];
 -- 新家字段
 ALTER TABLE `category_info` ADD categoryType VARCHAR(255) DEFAULT('');
-ALTER TABLE `category_info` ADD nameDesc VARCHAR(255);
+ALTER TABLE `category_info` ADD storeName VARCHAR(255) DEFAULT('');
 ALTER TABLE category_info ADD status INT NOT NULL;
 SELECT * FROM category_info;
 ALTER TABLE `category_info` ADD count VARCHAR;
